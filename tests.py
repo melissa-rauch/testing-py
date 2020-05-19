@@ -1,4 +1,4 @@
-"""Tests for Balloonicorn's Flask app."""
+"""Unittests for Balloonicorn's Flask app."""
 
 import unittest
 import server
@@ -22,8 +22,10 @@ class PartyTests(unittest.TestCase):
     def test_no_rsvp_yet(self):
         """Do users who haven't RSVPed see the correct view?"""
 
-        # FIXME: Add a test to show we haven't RSVP'd yet
-        print('FIXME')
+        result = self.client.get('/')
+        self.assertIn(b'Please RSVP', result.data)
+        # looks within the data on the page ('/') for "Please RSVP"
+        
 
     def test_rsvp(self):
         """Do RSVPed users see the correct view?"""
@@ -33,15 +35,23 @@ class PartyTests(unittest.TestCase):
         result = self.client.post('/rsvp', data=rsvp_info,
                                   follow_redirects=True)
 
-        # FIXME: check that once we log in we see party details--but not the form!
-        print('FIXME')
+        self.assertIn(b'Yay!', result.data)
+        self.assertIn(b'Party Details', result.data)
+        self.assertNotIn(b'Please RSVP', result.data)
+        #looks on the ('/rsvp') page data to confirm it includes "Yay!" and 
+        #"Party Details" but not "Please RSVP"
+        
+
 
     def test_rsvp_mel(self):
         """Can we keep Mel out?"""
+        rsvp_info = {'name': 'Mel', 'email': 'mel@ubermelon.com'}
+        result = self.client.post('/rsvp', data=rsvp_info, follow_redirects=True)
 
-        # FIXME: write a test that mel can't invite himself
-        pass
-        print('FIXME')
+        self.assertNotIn(b'Yay!', result.data)
+        self.assertNotIn(b'Party Details', result.data)
+        self.assertIn(b'Please RSVP', result.data)
+
 
 
 if __name__ == '__main__':

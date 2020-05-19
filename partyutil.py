@@ -22,15 +22,15 @@ def most_and_least_common_type(treats):
     (most, least). If there's a tie, the dessert that appears
     first in alphabetical order should win.
     
-    treats = [{'type': 'dessert'}, 
-    {'type': 'dessert'}, 
-    {'type': 'appetizer'}, 
-    {'type': 'dessert'}, 
-    {'type': 'appetizer'}, 
-    {'type': 'drink'}]
 
-    >>> most_and_least_common_type([{'type': 'dessert'}, {'type': 'dessert'}, {'type': 'appetizer'}, {'type': 'dessert'}, {'type': 'appetizer'}, {'type': 'drink'}]) 
+    >>> most_and_least_common_type(\
+    [{'type': 'dessert'}, {'type': 'dessert'}, {'type': 'appetizer'}, \
+    {'type': 'dessert'}, {'type': 'appetizer'}, {'type': 'drink'}]) 
     ('dessert', 'drink')
+
+    >>>treats = []
+    >>>most_and_least_common_types(treats)
+    ('none', 'none')
 
     """
 
